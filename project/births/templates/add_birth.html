@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% from "_form_macros.html" import render_field %}
+
+{% block content %}
+ 
+<div class="add-birth">
+ 
+<div class="page-header">
+ 
+<h2>Add a New Birth Record</h2>
+ 
+  </div>
+ 
+ 
+ 
+<form action="{{ url_for('births.add_birth') }}" method="post">
+    {{ form.csrf_token }}
+    <dl>
+    {{ render_field(form.child_name, placeholder="Name of Child") }}
+    
+    {{ render_field(form.father_name, placeholder="Name of Father") }}
+    
+    {{ render_field(form.mother_name, placeholder="Name of Mother") }}
+    
+    {{ render_field(form.midwife_name, placeholder="Name of Midwife") }}
+    
+    {{ render_field(form.birth_date, placeholder="Date of Birth") }}
+    
+    {{ render_field(form.registration_date, placeholder="Date of Registration") }}
+    
+    {{ render_field(form.hospital_name, placeholder="Name of Hospital") }}
+    
+    {{ render_field(form.birth_county, placeholder="County of Birth") }}
+    
+    {{ render_field(form.birth_constituency, placeholder="Constituency of Birth") }}
+    
+    {{ render_field(form.birth_ward, placeholder="Ward of Birth") }}
+</dl>
+    
+    <button class="btn btn-sm btn-success" type="submit">Add Birth Record</button>
+  </form>
+ 
+</div>
+ 
+ 
+{% endblock %}
