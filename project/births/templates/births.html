@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="page-header">
+      <h2>Births</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <table class="table table-striped" id="owned_stock_table">
+          <thead>
+      <tr>
+        <th>Child Name</th>
+        <th>Father Name</th>
+        <th>Mother Name</th>
+        <th>Midwife Name</th>
+        <th>Birth Date</th>
+        <th>Registration Date</th>
+        <th>Hospital</th>
+        <th>County</th>
+        <th>Constituency</th>
+        <th>Ward</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for birth in births %}
+      <tr>
+        <td>{{ birth.child_name }}</td>
+        <td>{{ birth.father_name }}</td>
+        <td>{{ birth.mother_name }}</td>
+        <td>{{ birth.midwife_name }}</td>
+        <td>{{ birth.birth_date }}</td>
+        <td>{{ birth.registration_name }}</td>
+        <td>{{ birth.hospital_name }}</td>
+        <td>{{ birth.birth_county }}</td>
+        <td>{{ birth.birth_constituency }}</td>
+        <td>{{ birth.birth_ward }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+   </div>
+ </div>
+
+{% endblock %}

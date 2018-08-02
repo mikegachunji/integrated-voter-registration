@@ -5,6 +5,7 @@
 #################
  
 from flask import render_template, Blueprint
+from project.models import Birth
  
  
 ################
@@ -20,4 +21,5 @@ births_blueprint = Blueprint('births', __name__, template_folder='templates')
  
 @births_blueprint.route('/')
 def index():
-    return render_template('index.html')
+    all_births = Birth.query.all()
+    return render_template('births.html', births=all_births)

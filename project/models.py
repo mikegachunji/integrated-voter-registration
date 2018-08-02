@@ -24,7 +24,7 @@ class Birth(db.Model):
         self.mother_name = mother_name
         self.midwife_name = midwife_name
         self.birth_date = birth_date
-        self.registration_date = registration_date
+        self.registration_date = datetime.now()
         self.hospital_name = hospital_name
         self.birth_county = birth_county
         self.birth_constituency = birth_constituency
