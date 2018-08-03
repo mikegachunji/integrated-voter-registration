@@ -21,7 +21,10 @@ db = SQLAlchemy(app)
 ####################
  
 from project.births.views import births_blueprint
+from project.users.views import users_blueprint
+
 
  
 # register the blueprints
 app.register_blueprint(births_blueprint)
+app.register_blueprint(users_blueprint)

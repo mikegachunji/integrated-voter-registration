@@ -22,7 +22,7 @@ def flash_errors(form):
 #### config ####
 ################
  
-births_blueprint = Blueprint('births', __name__, template_folder='templates')
+births_blueprint = Blueprint('births', __name__)
  
  
 ################
