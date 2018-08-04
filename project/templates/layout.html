@@ -24,9 +24,7 @@
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
+          {% if current_user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="#">All Records</a>
           </li>
@@ -34,8 +32,16 @@
             <a class="nav-link" href="{{ url_for('births.add_birth') }}">Add Birth Record</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+          </li> 
+          {% else %}
+          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
-          </li>                     
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
+          </li>
+          {% endif %}                              
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Welcome!</a></li>
