@@ -5,6 +5,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_mail import Mail
 
  
  
@@ -16,6 +17,7 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_pyfile('flask.cfg')
 
 db = SQLAlchemy(app)
+mail = Mail(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)

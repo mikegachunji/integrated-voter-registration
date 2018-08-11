@@ -4,6 +4,9 @@ from flask_login import login_user, current_user, login_required, logout_user
 from sqlalchemy.exc import IntegrityError
 from project.models import User
 from project.users.forms import RegisterForm, LoginForm
+from flask_mail import Message
+from project import db, app, mail
+from threading import Thread
 
 
 def flash_errors(form):
@@ -13,6 +16,17 @@ def flash_errors(form):
                 getattr(form, field).label.text,
                 error
             ), 'info')
+
+def send_async_email(msg):
+    with app.app_context():
+        mail.send(msg)
+ 
+ 
+def send_email(subject, recipients, html_body):
+    msg = Message(subject, recipients=recipients)
+    msg.html = html_body
+    thr = Thread(target=send_async_email, args=[msg])
+    thr.start()
 
 
 
@@ -34,6 +48,11 @@ def register():
                 new_user.authenticated = True
                 db.session.add(new_user)
                 db.session.commit()
+
+                send_email('Registration',
+                           ['mikegachunji@gmail.com'],
+                           'Thanks for registering on the Integrated Voting Registration System!')
+                
                 flash('Thanks for registering!', 'success')
                 return redirect(url_for('births.index'))
             except IntegrityError:
