@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% from "_form_macros.html" import render_field %}
+ 
+{% block content %}
+ 
+<div class="user-profile">
+  <div class="page-header">
+    <h2>User Profile</h2>
+  </div>
+ 
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card card-primary">
+        <div class="card-header">Email Address</div>
+        <div class="card-body">{{current_user.email}}</div>
+      </div>
+ 
+      <div class="card panel-info">
+        <div class="card-header">Account Actions</div>
+        <div class="card-body"><a href="#">Change Email</a></div>
+        <div class="card-body"><a href="#">Change Password</a></div>
+        {% if not current_user.email_confirmed %}
+    <div class="card-body"><a href="#">Resend Email Confirmation</a></div>
+  {% endif %}
+      </div>
+ 
+      <div class="card panel-info">
+        <div class="card-header">Statistics</div>
+        <div class="card-body">Member since: {{ current_user.registered_on.strftime("%A %B %d, %Y") }}</div>
+        {% if current_user.last_logged_in != None %}
+          <div class="card-body">Last Logged In: {{ current_user.last_logged_in.strftime("%A %B %d, %Y") }}</div>
+        {% else %}
+          <div class="card-body">First time logged in. Welcome!</div>
+        {% endif %}
+        {% if current_user.email_confirmed %}
+          <div class="card-body">Email confirmed on: {{ current_user.email_confirmed_on.strftime("%A %B %d, %Y") }}</div>
+        {% else %}
+          <div class="card-body">Email has not been confirmed!</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+ 
+{% endblock %}
