@@ -1,12 +1,14 @@
 from flask import render_template, Blueprint, request, redirect, url_for, flash
-from project import db
 from flask_login import login_user, current_user, login_required, logout_user
 from sqlalchemy.exc import IntegrityError
+from flask_mail import Message
+from threading import Thread
+from itsdangerous import URLSafeTimedSerializer
+from datetime import datetime
+
+from project import db, app, mail
 from project.models import User
 from project.users.forms import RegisterForm, LoginForm
-from flask_mail import Message
-from project import db, app, mail
-from threading import Thread
 
 
 def flash_errors(form):
@@ -27,6 +29,20 @@ def send_email(subject, recipients, html_body):
     msg.html = html_body
     thr = Thread(target=send_async_email, args=[msg])
     thr.start()
+
+def send_confirmation_email(user_email):
+    confirm_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+ 
+    confirm_url = url_for(
+        'users.confirm_email',
+        token=confirm_serializer.dumps(user_email, salt='email-confirmation-salt'),
+        _external=True)
+ 
+    html = render_template(
+        'email_confirmation.html',
+        confirm_url=confirm_url)
+ 
+    send_email('Confirm Your Email Address', [user_email], html)
 
 
 
@@ -49,11 +65,8 @@ def register():
                 db.session.add(new_user)
                 db.session.commit()
 
-                send_email('Registration',
-                           ['mikegachunji@gmail.com'],
-                           'Thanks for registering on the Integrated Voting Registration System!')
-                
-                flash('Thanks for registering!', 'success')
+                send_confirmation_email(new_user.email)
+                flash('Thanks for registering!  Please check your email to confirm your email address.', 'success')
                 return redirect(url_for('births.index'))
             except IntegrityError:
                 db.session.rollback()
@@ -90,3 +103,26 @@ def logout():
     logout_user()
     flash('Goodbye!', 'info')
     return redirect(url_for('users.login'))
+
+
+@users_blueprint.route('/confirm/<token>')
+def confirm_email(token):
+    try:
+        confirm_serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        email = confirm_serializer.loads(token, salt='email-confirmation-salt', max_age=3600)
+    except:
+        flash('The confirmation link is invalid or has expired.', 'error')
+        return redirect(url_for('users.login'))
+ 
+    user = User.query.filter_by(email=email).first()
+ 
+    if user.email_confirmed:
+        flash('Account already confirmed. Please login.', 'info')
+    else:
+        user.email_confirmed = True
+        user.email_confirmed_on = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('Thank you for confirming your email address!')
+ 
+    return redirect(url_for('births.index'))
