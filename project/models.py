@@ -41,18 +41,19 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
-    password_plaintext = db.Column(db.String, nullable=False)  # TEMPORARY - TO BE DELETED IN FAVOR OF HASHED PASSWORD
+    password = db.Column(db.String, nullable=False)  # TEMPORARY - TO BE DELETED IN FAVOR OF HASHED PASSWORD
     authenticated = db.Column(db.Boolean, default=False)
  
-    def __init__(self, username, email, password_plaintext):
+    def __init__(self, username, email, password):
         self.email = email
         self.username = username
-        self.password_plaintext = password_plaintext
+        self.password = password
         self.authenticated = False
  
+    
     @hybrid_method
-    def is_correct_password(self, plaintext_password):
-        return self.password_plaintext == plaintext_password
+    def is_correct_password(self, password):
+        return self.password == password
  
     @property
     def is_authenticated(self):
