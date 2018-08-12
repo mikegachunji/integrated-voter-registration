@@ -18,8 +18,9 @@ class Birth(db.Model):
     birth_county = db.Column(db.String, nullable=False)
     birth_constituency = db.Column(db.String, nullable=False)
     birth_ward = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
  
-    def __init__(self, child_name, father_name, mother_name, midwife_name, birth_date, registration_date, hospital_name, birth_county, birth_constituency, birth_ward):
+    def __init__(self, child_name, father_name, mother_name, midwife_name, birth_date, registration_date, hospital_name, birth_county, birth_constituency, birth_ward, user_id):
         self.child_name = child_name
         self.father_name = father_name
         self.mother_name = mother_name
@@ -30,6 +31,7 @@ class Birth(db.Model):
         self.birth_county = birth_county
         self.birth_constituency = birth_constituency
         self.birth_ward = birth_ward
+        self.user_id = user_id
  
     def __repr__(self):
         return '<title {}'.format(self.name)
@@ -50,6 +52,7 @@ class User(db.Model):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
     role = db.Column(db.String, default='user')
+    births = db.relationship('Birth', backref='user', lazy='dynamic')
  
     def __init__(self, username, email, password, email_confirmation_sent_on=None, role='user'):
         self.email = email
