@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="page-header">
+      <h2>List Of Persons</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <table class="table table-striped" id="owned_stock_table">
+          <thead>
+      <tr>
+        <th>Name</th>
+        <th>Identification Number</th>
+        <th>Date of Birth</th>
+        <th>County</th>
+        <th>Constituency</th>
+        <th>Ward</th>        
+      </tr>
+    </thead>
+    <tbody>
+      {% for id in ids %}
+      <tr>
+        <td><a href="{{ url_for('births.person_details', id_card_id=id.ID.id) }}">{{ id.Birth.child_name }}</td>
+        <td>{{ id.ID.id_number }}</td>
+        <td>{{ id.Birth.birth_date }}</td>
+        <td>{{ id.Birth.birth_county }}</td>
+        <td>{{ id.Birth.birth_constituency }}</td>
+        <td>{{ id.Birth.birth_ward }}</td>
+        
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+   </div>
+ </div>
+
+{% endblock %}

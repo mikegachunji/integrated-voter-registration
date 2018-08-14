@@ -5,42 +5,42 @@
 
 <div class="user-profile">
   <div class="page-header">
-    <h2>{{ ids.Birth.child_name }}</h2>
+    <h2>{{ voters.Birth.child_name }}</h2>
   </div>
  
   <div class="row">
     <div class="col-sm-6">
     <div class="card panel-info">
         <div class="card-header">Account Actions</div>
-        <div class="card-body"><a href="{{ url_for('iebc.add_station', id_card_id=ids.ID.id) }}">Add Polling Station</a></div>               
+        <div class="card-body"><a href="{{ url_for('births.mark_as_deceased', birth_id=voters.Birth.id) }}">Mark as Deceased</a></div>               
       </div>
     <div class="card panel-primary">
       <div class="card-header">Identification Number</div>
-      <div class="card-body">{{ ids.ID.id_number }}</div>
+      <div class="card-body">{{ voters.ID.id_number }}</div>
     </div>
  
     <div class="card panel-primary">
       <div class="card-header">Date of Birth</div>
-      <div class="card-body">{{ ids.Birth.birth_date }}</div>
+      <div class="card-body">{{ voters.Birth.birth_date }}</div>
     </div>
 
     <div class="card panel-primary">
       <div class="card-header">County</div>
-      <div class="card-body">{{ ids.Birth.birth_county }}</div>
+      <div class="card-body">{{ voters.Birth.birth_county }}</div>
     </div>
 
     <div class="card panel-primary">
       <div class="card-header">Constituency</div>
-      <div class="card-body">{{ ids.Birth.birth_constituency }}</div>
+      <div class="card-body">{{ voters.Birth.birth_constituency }}</div>
     </div>
 
     <div class="card panel-primary">
       <div class="card-header">Ward</div>
-      <div class="card-body">{{ ids.Birth.birth_ward }}</div>
+      <div class="card-body">{{ voters.Birth.birth_ward }}</div>
     </div>
 
-    {% if ids.ID.image_url %}
-      <img src="{{ ids.ID.image_url }}" alt="{{ ids.ID.image_filename }}" style="width:600px;height:450px;">
+    {% if voters.ID.image_url %}
+      <img src="{{ voters.ID.image_url }}" alt="{{ voters.ID.image_filename }}" style="width:600px;height:450px;">
     {% endif %}
  
   </div>

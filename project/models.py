@@ -18,11 +18,12 @@ class Birth(db.Model):
     birth_county = db.Column(db.String, nullable=False)
     birth_constituency = db.Column(db.String, nullable=False)
     birth_ward = db.Column(db.String, nullable=False)
+    deceased = db.Column(db.Boolean, default=False, nullable=False)
     id_cards = db.relationship('ID', uselist=False, back_populates='births')
 
             
  
-    def __init__(self, child_name, father_name, mother_name, midwife_name, birth_date, registration_date, hospital_name, birth_county, birth_constituency, birth_ward):
+    def __init__(self, child_name, father_name, mother_name, midwife_name, birth_date, registration_date, hospital_name, birth_county, birth_constituency, birth_ward, deceased):
         self.child_name = child_name
         self.father_name = father_name
         self.mother_name = mother_name
@@ -33,11 +34,12 @@ class Birth(db.Model):
         self.birth_county = birth_county
         self.birth_constituency = birth_constituency
         self.birth_ward = birth_ward
+        self.deceased = False
 
         
  
     def __repr__(self):
-        return '<id: {}, name: {}, date_of_birth: {}, county: {}, constituency: {}, ward: {}>'.format(self.id, self.child_name, self.birth_date, self.birth_county, self.birth_constituency, self.birth_ward)
+        return '<id: {}, name: {}, date_of_birth: {}, county: {}, constituency: {}, ward: {}, deceased: {}>'.format(self.id, self.child_name, self.birth_date, self.birth_county, self.birth_constituency, self.birth_ward, self.deceased)
 
 class User(db.Model):
  

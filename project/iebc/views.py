@@ -32,7 +32,7 @@ iebc_blueprint = Blueprint('iebc', __name__)
  
 @iebc_blueprint.route('/voter_list')
 def index():
-    all_voters = db.session.query(Birth, ID, IEBC).filter(Birth.id == ID.id == IEBC.id).all()
+    all_voters = db.session.query(Birth, ID, IEBC).join(ID).join(IEBC).filter(Birth.deceased == False).all()
     print (all_voters)
     return render_template('registered_voters.html', voters=all_voters)
 
@@ -43,9 +43,9 @@ def unregistered_voter_list():
     return render_template('unregistered_voters.html', ids=all_ids)
 
 
-@iebc_blueprint.route('/add_polling_station')
-def add_polling_station():
-    id_with_birth = db.session.query(ID, Birth).join(Birth).filter(ID.id == Birth.id).first()
+@iebc_blueprint.route('/add_polling_station/<id_card_id>')
+def add_polling_station(id_card_id):
+    id_with_birth = db.session.query(ID, Birth).join(Birth).filter(ID.id == id_card_id).first()
     return render_template('add_polling_station.html', ids=id_with_birth)
 
 
@@ -72,7 +72,7 @@ def add_station():
 
 @iebc_blueprint.route('/voter_detail/<voter_id>')
 def voter_details(voter_id):
-    all_voters = db.session.query(Birth, ID, IEBC).join(ID).join(IEBC).filter(Birth.id == ID.id == IEBC.id).first()
+    all_voters = db.session.query(Birth, ID, IEBC).join(ID).join(IEBC).filter(IEBC.id == voter_id).first()
     print (all_voters)
     if all_voters is not None:        
         if current_user.is_authenticated:

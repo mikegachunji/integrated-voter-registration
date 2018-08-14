@@ -30,9 +30,9 @@ def unregistered_id_list():
     return render_template('unregistered_ids.html', births=all_births)
 
 
-@id_blueprint.route('/add_id_number')
-def add_id_number():
-    all_births = db.session.query(Birth).first()
+@id_blueprint.route('/add_id_number/<birth_id>')
+def add_id_number(birth_id):
+    all_births = Birth.query.filter(Birth.id == birth_id).first()
     return render_template('add_id_number.html', births=all_births)
 
 
