@@ -26,7 +26,7 @@
         <ul class="navbar-nav mr-auto">
           {% if current_user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link" href="#">All Records</a>
+            <a class="nav-link" href="{{ url_for('births.index') }}">All Records</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('births.add_birth') }}">Add Birth Record</a>

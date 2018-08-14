@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% from "_form_macros.html" import render_field %}
+ 
+{% block content %}
+ 
+<div class="add-recipe">
+  <div class="page-header">
+    <h2>Add Identification Details</h2>
+  </div>
+  <form action="{{ url_for('id.add_id') }}" method="post" enctype="multipart/form-data">
+    {{ form.csrf_token }}
+    <dl>
+      {{ render_field(form.id_number, placeholder="Enter ID Number") }}
+      {{ render_field(form.birth_id, placeholder="Enter Birth ID") }}
+      {{ render_field(form.profile_image) }}
+    </dl>
+    <button class="btn btn-sm btn-success" type="submit">Add Details to Profile</button>
+  </form>
+</div>
+ 
+{% endblock %}

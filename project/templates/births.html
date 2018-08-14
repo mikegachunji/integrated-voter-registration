@@ -24,7 +24,7 @@
     <tbody>
       {% for birth in births %}
       <tr>
-        <td>{{ birth.child_name }}</td>
+        <td><a href="{{ url_for('births.birth_details', birth_id=birth.id) }}">{{ birth.child_name }}</td>
         <td>{{ birth.father_name }}</td>
         <td>{{ birth.mother_name }}</td>
         <td>{{ birth.midwife_name }}</td>

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+ 
+<div class="user-profile">
+  <div class="page-header">
+    <h2>{{ birth.Birth.child_name }}</h2>
+  </div>
+ 
+  <div class="row">
+    <div class="card panel-primary">
+      <div class="card-header">Date of Birth</div>
+      <div class="card-body">{{ birth.Birth.birth_date }}</div>
+    </div> 
+    
+ 
+    <div class="card panel-primary">
+      <div class="card-header">County</div>
+      <div class="card-body">{{ birth.Birth.birth_county }}</div>
+    </div>
+
+    {% if birth.ID.image_url %}
+      <img src="{{ birth.Birth.image_url }}" alt="{{ birth.ID.image_filename }}" style="width:600px;height:450px;">
+    {% endif %}
+ 
+  </div>
+</div>
+ 
+{% endblock %}

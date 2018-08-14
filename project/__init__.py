@@ -6,7 +6,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail import Mail
-
+from flask_uploads import UploadSet, IMAGES, configure_uploads
  
  
 ################
@@ -19,9 +19,14 @@ app.config.from_pyfile('flask.cfg')
 db = SQLAlchemy(app)
 mail = Mail(app)
 
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "users.login"
+
+# Configure the image uploading via Flask-Uploads
+images = UploadSet('images', IMAGES)
+configure_uploads(app, images)
  
  
 from project.models import User
@@ -37,12 +42,13 @@ def load_user(user_id):
  
 from project.births.views import births_blueprint
 from project.users.views import users_blueprint
-
+from project.id.views import id_blueprint
 
  
 # register the blueprints
 app.register_blueprint(births_blueprint)
 app.register_blueprint(users_blueprint)
+app.register_blueprint(id_blueprint)
 
 
 ############################

@@ -1,7 +1,7 @@
 from project import db
 from datetime import datetime
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
- 
+
  
 class Birth(db.Model):
  
@@ -18,9 +18,11 @@ class Birth(db.Model):
     birth_county = db.Column(db.String, nullable=False)
     birth_constituency = db.Column(db.String, nullable=False)
     birth_ward = db.Column(db.String, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    id_cards = db.relationship('ID', uselist=False, back_populates='births')
+
+            
  
-    def __init__(self, child_name, father_name, mother_name, midwife_name, birth_date, registration_date, hospital_name, birth_county, birth_constituency, birth_ward, user_id):
+    def __init__(self, child_name, father_name, mother_name, midwife_name, birth_date, registration_date, hospital_name, birth_county, birth_constituency, birth_ward):
         self.child_name = child_name
         self.father_name = father_name
         self.mother_name = mother_name
@@ -31,16 +33,18 @@ class Birth(db.Model):
         self.birth_county = birth_county
         self.birth_constituency = birth_constituency
         self.birth_ward = birth_ward
-        self.user_id = user_id
+
+        
  
     def __repr__(self):
-        return '<title {}'.format(self.name)
+        return '<id: {}, name: {}>'.format(self.id, self.child_name)
 
 class User(db.Model):
  
     __tablename__ = 'users'
  
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)  # TEMPORARY - TO BE DELETED IN FAVOR OF HASHED PASSWORD
@@ -52,7 +56,8 @@ class User(db.Model):
     last_logged_in = db.Column(db.DateTime, nullable=True)
     current_logged_in = db.Column(db.DateTime, nullable=True)
     role = db.Column(db.String, default='user')
-    births = db.relationship('Birth', backref='user', lazy='dynamic')
+
+       
  
     def __init__(self, username, email, password, email_confirmation_sent_on=None, role='user'):
         self.email = email
@@ -94,3 +99,29 @@ class User(db.Model):
  
     def __repr__(self):
         return '<User {0}>'.format(self.name)
+
+
+class ID(db.Model):
+ 
+    __tablename__ = "id_cards"
+ 
+    id = db.Column(db.Integer, primary_key=True)
+    id_number = db.Column(db.Integer, nullable=False)
+    image_filename = db.Column(db.String, default=None, nullable=True)
+    image_url = db.Column(db.String, default=None, nullable=True)
+    birth_id = db.Column(db.Integer, db.ForeignKey('births.id'))
+    births = db.relationship('Birth', back_populates='id_cards')    
+    
+     
+    def __init__(self, id_number, birth_id, image_filename=None, image_url=None):
+        self.id_number = id_number
+        self.birth_id = birth_id
+        self.image_filename = image_filename
+        self.image_url = image_url
+        
+        
+ 
+    def __repr__(self):
+        return '<id: {}, id_number: {}, birth_id: {}>'.format(self.id, self.id_number, self.birth_id)
+
+

@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+ 
+<div class="user-profile">
+  <div class="page-header">
+    <h2>{{ birth.child_name }}</h2>
+  </div>
+ 
+  <div class="row">
+    <div class="card panel-primary">
+      <div class="card-header">Name of Child</div>
+      <div class="card-body">{{ birth.child_name }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Name of Father</div>
+      <div class="card-body">{{ birth.father_name }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Name of Mother</div>
+      <div class="card-body">{{ birth.mother_name }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Name of Midwife</div>
+      <div class="card-body">{{ birth.midwife_name }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Date of Birth</div>
+      <div class="card-body">{{ birth.birth_date }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Date of Registration</div>
+      <div class="card-body">{{ birth.registration_date }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Name of Hospital</div>
+      <div class="card-body">{{ birth.hospital_name }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">County of Birth</div>
+      <div class="card-body">{{ birth.birth_county }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Constituency of Birth</div>
+      <div class="card-body">{{ birth.birth_constituency }}</div>
+    </div>
+
+    <div class="card panel-primary">
+      <div class="card-header">Ward of Birth</div>
+      <div class="card-body">{{ birth.birth_ward }}</div>
+    </div>
+ 
+  </div>
+</div>`
+ 
+{% endblock %}
