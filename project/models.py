@@ -37,7 +37,7 @@ class Birth(db.Model):
         
  
     def __repr__(self):
-        return '<id: {}, name: {}>'.format(self.id, self.child_name)
+        return '<id: {}, name: {}, date_of_birth: {}, county: {}, constituency: {}, ward: {}>'.format(self.id, self.child_name, self.birth_date, self.birth_county, self.birth_constituency, self.birth_ward)
 
 class User(db.Model):
  
@@ -110,7 +110,8 @@ class ID(db.Model):
     image_filename = db.Column(db.String, default=None, nullable=True)
     image_url = db.Column(db.String, default=None, nullable=True)
     birth_id = db.Column(db.Integer, db.ForeignKey('births.id'))
-    births = db.relationship('Birth', back_populates='id_cards')    
+    births = db.relationship('Birth', back_populates='id_cards') 
+    iebc = db.relationship('IEBC', uselist=False, back_populates='id_cards')   
     
      
     def __init__(self, id_number, birth_id, image_filename=None, image_url=None):
@@ -124,4 +125,22 @@ class ID(db.Model):
     def __repr__(self):
         return '<id: {}, id_number: {}, birth_id: {}>'.format(self.id, self.id_number, self.birth_id)
 
+
+class IEBC(db.Model):
+
+    __tablename__ = "iebc"
+
+    id = db.Column(db.Integer, primary_key=True)
+    polling_station = db.Column(db.String, default=None, nullable=True)
+    id_card_id = db.Column(db.Integer, db.ForeignKey('id_cards.id')) 
+    id_cards = db.relationship('ID', back_populates='iebc')
+
+    def __init__(self, polling_station, id_card_id):
+        self.polling_station = polling_station
+        self.id_card_id = id_card_id
+
+    def __repr__(self):
+        return '<id: {}, polling_station: {}, id_card_id: {}>'.format(self.id, self.polling_station, self.id_card_id)
+
+        
 

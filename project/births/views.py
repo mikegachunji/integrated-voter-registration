@@ -30,7 +30,7 @@ births_blueprint = Blueprint('births', __name__)
 #### routes ####
 ################
  
-@births_blueprint.route('/')
+@births_blueprint.route('/births_list')
 def index():
     all_births = Birth.query.all()
     return render_template('births.html', births=all_births)
@@ -60,10 +60,7 @@ def birth_details(birth_id):
         if current_user.username == 'Registrar':
             return render_template('birth_details.html', birth=birth)
         else:
-            if current_user.username == 'IDAdmin':
-                return render_template('add_id_number.html', birth=birth)
-            else:
-                flash('Error! Incorrect permissions to access this record.', 'error')
+            flash('Error! Incorrect permissions to access this record.', 'error')
     else:
         flash('Error! Record does not exist.', 'error')
     return redirect(url_for('births.index'))

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% from "_form_macros.html" import render_field %}
+ 
+{% block content %}
+ 
+<div class="add-recipe">
+  <div class="page-header">
+    <h2>Add Identification Details</h2>
+  </div>
+  <form action="{{ url_for('iebc.add_station') }}" method="post">
+    {{ form.csrf_token }}
+    <dl>
+      {{ render_field(form.polling_station, placeholder="Enter Polling Station") }}
+      {{ render_field(form.id_card_id, placeholder="Enter Identification ID") }}      
+    </dl>
+    <button class="btn btn-sm btn-success" type="submit">Add Details to Profile</button>
+  </form>
+</div>
+ 
+{% endblock %}

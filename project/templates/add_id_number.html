@@ -10,35 +10,36 @@
  
   <div class="row">
     <div class="col-sm-6">
+      <div class="card panel-info">
+        <div class="card-header">Account Actions</div>
+        <div class="card-body"><a href="{{ url_for('id.add_id', birth_id=births.id) }}">Issue Identification Number</a></div>               
+      </div>      
       <div class="card card-primary">
         <div class="card-header">Name</div>
-        <div class="card-body">{{ birth.child_name }}</div>
+        <div class="card-body">{{ births.child_name }}</div>
       </div>
 
       <div class="card card-primary">
         <div class="card-header">Date of Birth</div>
-        <div class="card-body">{{ birth.birth_date }}</div>
+        <div class="card-body">{{ births.birth_date }}</div>
       </div>
 
       <div class="card card-primary">
         <div class="card-header">County</div>
-        <div class="card-body">{{ birth.birth_county }}</div>
+        <div class="card-body">{{ births.birth_county }}</div>
       </div>
 
       <div class="card card-primary">
         <div class="card-header">Constituency</div>
-        <div class="card-body">{{ birth.birth_constituency }}</div>
+        <div class="card-body">{{ births.birth_constituency }}</div>
       </div>
 
       <div class="card card-primary">
         <div class="card-header">Ward</div>
-        <div class="card-body">{{ birth.birth_ward }}</div>
+        <div class="card-body">{{ births.birth_ward }}</div>
       </div>
  
-      <div class="card panel-info">
-        <div class="card-header">Account Actions</div>
-        <div class="card-body"><a href="{{ url_for('id.add_id', birth_id=birth.id) }}">Issue Identification Number</a></div>               
-      </div>      
+            
     </div>
   </div>
 </div>

@@ -17,15 +17,23 @@ def flash_errors(form):
 
 
 
-@id_blueprint.route('/id_details')
+@id_blueprint.route('/id_list')
 def index():
-    all_ids = ID.query.all()
-    return render_template('id_details.html', ids=all_ids)
+    all_ids = db.session.query(Birth,ID).filter(Birth.id == ID.id).all()
+    print (all_ids)
+    return render_template('ids.html', ids=all_ids)
+
+
+@id_blueprint.route('/unregistered_id_list')
+def unregistered_id_list():
+    all_births = Birth.query.all()
+    return render_template('unregistered_ids.html', births=all_births)
+
 
 @id_blueprint.route('/add_id_number')
 def add_id_number():
-    all_ids = ID.query.all()
-    return render_template('add_id_number.html', ids=all_ids)
+    all_births = db.session.query(Birth).first()
+    return render_template('add_id_number.html', births=all_births)
 
 
 
@@ -42,7 +50,7 @@ def add_id():
             db.session.add(new_id)
             db.session.commit()
             flash('New Identification Details, {}, added!'.format(new_id.id_number), 'success')
-            return redirect(url_for('id.id_details', id_card_id=new_id.id))
+            return redirect(url_for('id.index', id_card_id=new_id.id))
         else:
             flash_errors(form)
             flash('ERROR! Record was not added.', 'error')
@@ -53,6 +61,7 @@ def add_id():
 @id_blueprint.route('/id_detail/<id_card_id>')
 def id_details(id_card_id):
     id_with_birth = db.session.query(ID, Birth).join(Birth).filter(ID.id == id_card_id).first()
+    print (id_with_birth)
     if id_with_birth is not None:        
         if current_user.is_authenticated:
             return render_template('id_details.html', id_card=id_with_birth)

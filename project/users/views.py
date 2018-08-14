@@ -101,9 +101,14 @@ def login():
                 db.session.commit()
                 login_user(user)
                 flash('Thanks for logging in, {}'.format(current_user.email))
-                return redirect(url_for('births.index'))
-            else:
-                flash('ERROR! Incorrect login credentials.', 'error')
+                if current_user.username == 'Registrar':
+                    return redirect(url_for('births.index'))
+                if current_user.username == 'IDAdmin':
+                    return redirect(url_for('id.unregistered_id_list'))
+                if current_user.username == 'IEBCAdmin':
+                    return redirect(url_for('iebc.unregistered_voter_list'))
+                else:
+                    flash('ERROR! Incorrect login credentials.', 'error')
     return render_template('login.html', form=form)
 
 
