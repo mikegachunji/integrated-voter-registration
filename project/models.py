@@ -1,4 +1,4 @@
-from project import db
+from project import db, app
 from datetime import datetime
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 
@@ -6,6 +6,7 @@ from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 class Birth(db.Model):
  
     __tablename__ = "births"
+    
  
     id = db.Column(db.Integer, primary_key=True)
     child_name = db.Column(db.String, nullable=False)
@@ -106,7 +107,8 @@ class User(db.Model):
 class ID(db.Model):
  
     __tablename__ = "id_cards"
- 
+
+     
     id = db.Column(db.Integer, primary_key=True)
     id_number = db.Column(db.Integer, nullable=False)
     image_filename = db.Column(db.String, default=None, nullable=True)

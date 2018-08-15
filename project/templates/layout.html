@@ -13,24 +13,39 @@
   </head>
  
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
       <div class="container">
-        <div class="navbar-header">
-      <a class="navbar-brand" href="#">Integrated Voter Registration System</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand mr-4" href="/">Integrated Voter Registration System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsToggle" aria-controls="navbarsToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    </div>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+
+      <div class="collapse navbar-collapse" id="navbarsToggle">
         <ul class="navbar-nav mr-auto">
           {% if current_user.is_authenticated %}
+          {% if current_user.username == 'Registrar' %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('births.index') }}">All Records</a>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('births.add_birth') }}">Add Birth Record</a>            
+          </li>
+          </li>
+          {% endif %}
+          {% if current_user.username == 'IDAdmin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('id.index') }}">All Records</a>
+          </li>
+          {% endif %}
+          {% if current_user.username == 'IEBCAdmin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('iebc.index') }}">All Records</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('births.add_birth') }}">Add Birth Record</a>
+            <a class="nav-link" href="{{ url_for('iebc.unregistered_voter_list') }}">Unregistered Voters</a>
           </li>
+          {% endif %}          
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users.logout') }}">Logout</a>
           </li> 

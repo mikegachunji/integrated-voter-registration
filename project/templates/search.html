@@ -1,0 +1,43 @@
+<doctype html>
+
+<head>
+
+    <title>Flask Music Database</title>
+
+</head>
+
+<h2>Flask Music Database</h2>
+
+{% with messages = get_flashed_messages() %}
+
+  {% if messages %}
+
+    <ul class=flashes>
+
+    {% for message in messages %}
+
+      <li>{{ message }}</li>
+
+    {% endfor %}
+
+    </ul>
+
+  {% endif %}
+
+{% endwith %}
+
+{% from "_form_macros.html" import render_field %}
+
+<form method=post>
+
+  <dl>  
+
+    <p>
+
+    {{ render_field(form.search) }}
+
+  </dl>
+
+  <p><input type=submit value=Search>
+
+</form>

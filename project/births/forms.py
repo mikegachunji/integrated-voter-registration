@@ -17,3 +17,7 @@ class AddBirthForm(Form):
     birth_county = StringField('County', validators=[DataRequired()])
     birth_constituency = StringField('Constituency', validators=[DataRequired()])
     birth_ward = StringField('Ward', validators=[DataRequired()])
+
+
+class SearchForm(Form):
+    search = StringField('')

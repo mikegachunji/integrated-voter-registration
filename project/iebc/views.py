@@ -34,19 +34,31 @@ iebc_blueprint = Blueprint('iebc', __name__)
 def index():
     all_voters = db.session.query(Birth, ID, IEBC).join(ID).join(IEBC).filter(Birth.deceased == False).all()
     print (all_voters)
-    return render_template('registered_voters.html', voters=all_voters)
+    if current_user.username == 'IEBCAdmin':
+        return render_template('registered_voters.html', voters=all_voters)
+    else:
+        flash('Error! Incorrect permissions to access this record.', 'error')
+        return render_template('403.html')
 
 @iebc_blueprint.route('/unregistered_voter_list')
 def unregistered_voter_list():
     all_ids = db.session.query(Birth,ID).filter(Birth.id == ID.id).all()
     print (all_ids)
-    return render_template('unregistered_voters.html', ids=all_ids)
+    if current_user.username == 'IEBCAdmin':
+        return render_template('unregistered_voters.html', ids=all_ids)
+    else:
+        flash('Error! Incorrect permissions to access this record.', 'error')
+        return render_template('403.html')
 
 
 @iebc_blueprint.route('/add_polling_station/<id_card_id>')
 def add_polling_station(id_card_id):
     id_with_birth = db.session.query(ID, Birth).join(Birth).filter(ID.id == id_card_id).first()
-    return render_template('add_polling_station.html', ids=id_with_birth)
+    if current_user.username == 'IEBCAdmin':
+        return render_template('add_polling_station.html', ids=id_with_birth)
+    else:
+        flash('Error! Incorrect permissions to access this record.', 'error')
+        return render_template('403.html')
 
 
 
@@ -75,7 +87,7 @@ def voter_details(voter_id):
     all_voters = db.session.query(Birth, ID, IEBC).join(ID).join(IEBC).filter(IEBC.id == voter_id).first()
     print (all_voters)
     if all_voters is not None:        
-        if current_user.is_authenticated:
+        if current_user.is_authenticated and current_user.username == 'IEBCAdmin':
             return render_template('voter_details.html', voters=all_voters)
         else:
             flash('Error! Incorrect permissions to access this record.', 'error')
