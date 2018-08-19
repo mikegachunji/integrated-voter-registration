@@ -20,24 +20,14 @@
     </div>
  
     <div class="card panel-primary">
-      <div class="card-header">Date of Birth</div>
-      <div class="card-body">{{ voters.Birth.birth_date }}</div>
+      <div class="card-header">Year of Birth</div>
+      <div class="card-body">{{ voters.Birth.birth_year }}</div>
     </div>
 
     <div class="card panel-primary">
       <div class="card-header">County</div>
       <div class="card-body">{{ voters.Birth.birth_county }}</div>
-    </div>
-
-    <div class="card panel-primary">
-      <div class="card-header">Constituency</div>
-      <div class="card-body">{{ voters.Birth.birth_constituency }}</div>
-    </div>
-
-    <div class="card panel-primary">
-      <div class="card-header">Ward</div>
-      <div class="card-body">{{ voters.Birth.birth_ward }}</div>
-    </div>
+    </div>    
 
     {% if voters.ID.image_url %}
       <img src="{{ voters.ID.image_url }}" alt="{{ voters.ID.image_filename }}" style="width:600px;height:450px;">

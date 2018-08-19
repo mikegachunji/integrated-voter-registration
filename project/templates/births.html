@@ -12,13 +12,8 @@
         <th>Child Name</th>
         <th>Father Name</th>
         <th>Mother Name</th>
-        <th>Midwife Name</th>
-        <th>Birth Date</th>
-        <th>Registration Date</th>
-        <th>Hospital</th>
-        <th>County</th>
-        <th>Constituency</th>
-        <th>Ward</th>
+        <th>Birth Year</th>
+        <th>County</th>        
       </tr>
     </thead>
     <tbody>
@@ -27,13 +22,8 @@
         <td><a href="{{ url_for('births.birth_details', birth_id=birth.id) }}">{{ birth.child_name }}</td>
         <td>{{ birth.father_name }}</td>
         <td>{{ birth.mother_name }}</td>
-        <td>{{ birth.midwife_name }}</td>
-        <td>{{ birth.birth_date }}</td>
-        <td>{{ birth.registration_name }}</td>
-        <td>{{ birth.hospital_name }}</td>
-        <td>{{ birth.birth_county }}</td>
-        <td>{{ birth.birth_constituency }}</td>
-        <td>{{ birth.birth_ward }}</td>
+        <td>{{ birth.birth_year }}</td>
+        <td>{{ birth.birth_county }}</td>        
       </tr>
       {% endfor %}
     </tbody>

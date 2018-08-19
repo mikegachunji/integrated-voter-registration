@@ -13,27 +13,13 @@
     <div class="card panel-primary">
       <div class="card-header">Identification Number</div>
       <div class="card-body">{{ id_card.ID.id_number }}</div>
-    </div>
- 
-    <div class="card panel-primary">
-      <div class="card-header">Date of Birth</div>
-      <div class="card-body">{{ id_card.Birth.birth_date }}</div>
-    </div>
+    </div>    
 
     <div class="card panel-primary">
       <div class="card-header">County</div>
       <div class="card-body">{{ id_card.Birth.birth_county }}</div>
     </div>
-
-    <div class="card panel-primary">
-      <div class="card-header">Constituency</div>
-      <div class="card-body">{{ id_card.Birth.birth_constituency }}</div>
-    </div>
-
-    <div class="card panel-primary">
-      <div class="card-header">Ward</div>
-      <div class="card-body">{{ id_card.Birth.birth_ward }}</div>
-    </div>
+    
 
     {% if id_card.ID.image_url %}
       <img src="{{ id_card.ID.image_url }}" alt="{{ id_card.ID.image_filename }}" style="width:600px;height:450px;">

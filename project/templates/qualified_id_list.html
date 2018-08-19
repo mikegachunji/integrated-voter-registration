@@ -10,16 +10,20 @@
           <thead>
       <tr>
         <th>Name</th>
-        <th>Year of Birth</th>
-        <th>County</th>              
+        <th>Date of Birth</th>
+        <th>County</th>
+        <th>Constituency</th>
+        <th>Ward</th>        
       </tr>
     </thead>
     <tbody>
       {% for birth in births %}
       <tr>
         <td><a href="{{ url_for('id.add_id_number', birth_id=birth.id) }}">{{ birth.child_name }}</td>
-        <td>{{ birth.birth_year }}</td>
-        <td>{{ birth.birth_county }}</td>      
+        <td>{{ birth.birth_date }}</td>
+        <td>{{ birth.birth_county }}</td>
+        <td>{{ birth.birth_constituency }}</td>
+        <td>{{ birth.birth_ward }}</td>
         
       </tr>
       {% endfor %}

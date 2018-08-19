@@ -7,7 +7,7 @@
 from flask import render_template, Blueprint, request, redirect, url_for, flash
 from project import db
 from project.models import Birth, ID, IEBC
-from project.births.forms import AddBirthForm, SearchForm
+from project.births.forms import AddBirthForm
 from flask_login import login_user, current_user, login_required, logout_user
 
  
@@ -54,8 +54,7 @@ def index():
 @births_blueprint.route('/list_of_persons')
 @login_required
 def list_of_persons():
-    all_ids = db.session.query(Birth,ID).filter(Birth.id == ID.id).all()
-    print (all_ids)
+    all_ids = db.session.query(Birth,ID).filter(Birth.id == ID.birth_id).all()
     if current_user.username == 'Registrar':
         return render_template('list_of_persons.html', ids=all_ids)
     else:
@@ -76,7 +75,7 @@ def mark_as_deceased(birth_id):
 @births_blueprint.route('/person_detail/<id_card_id>')
 @login_required
 def person_details(id_card_id):
-    all_voters = db.session.query(Birth, ID, IEBC).join(ID).join(IEBC).filter(ID.id == id_card_id).first()
+    all_voters = db.session.query(Birth, ID).join(ID).filter(ID.id == id_card_id).first()
     print (all_voters)
     if all_voters is not None:        
         if current_user.is_authenticated and current_user.username == 'Registrar':
@@ -93,7 +92,7 @@ def add_birth():
     form = AddBirthForm(request.form)
     if request.method == 'POST':
         if form.validate_on_submit():
-            new_birth = Birth(form.child_name.data, form.father_name.data, form.mother_name.data, form.midwife_name.data, form.birth_date.data, form.registration_date.data, form.hospital_name.data, form.birth_county.data, form.birth_constituency.data, form.birth_ward.data, False)
+            new_birth = Birth(form.child_name.data, form.father_name.data, form.mother_name.data, form.gender.data, form.birth_year.data, form.birth_county.data, False, False, False)
             db.session.add(new_birth)
             db.session.commit()
             flash('New Birth Record, {}, added!'.format(new_birth.child_name), 'success')

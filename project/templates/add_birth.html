@@ -16,25 +16,30 @@
 <form action="{{ url_for('births.add_birth') }}" method="post">
     {{ form.csrf_token }}
     <dl>
-    {{ render_field(form.child_name, placeholder="Name of Child") }}
-    
-    {{ render_field(form.father_name, placeholder="Name of Father") }}
-    
-    {{ render_field(form.mother_name, placeholder="Name of Mother") }}
-    
-    {{ render_field(form.midwife_name, placeholder="Name of Midwife") }}
-    
-    {{ render_field(form.birth_date, placeholder="Date of Birth") }}
-    
-    {{ render_field(form.registration_date, placeholder="Date of Registration") }}
-    
-    {{ render_field(form.hospital_name, placeholder="Name of Hospital") }}
-    
-    {{ render_field(form.birth_county, placeholder="County of Birth") }}
-    
-    {{ render_field(form.birth_constituency, placeholder="Constituency of Birth") }}
-    
-    {{ render_field(form.birth_ward, placeholder="Ward of Birth") }}
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ render_field(form.child_name, placeholder="Name of Child") }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ render_field(form.father_name, placeholder="Name of Father") }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ render_field(form.mother_name, placeholder="Name of Mother") }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ render_field(form.birth_year, placeholder="Year of Birth") }}
+        </div>
+        <div class="form-group col-md-4">
+            {{ render_field(form.gender, placeholder="Gender") }}
+        </div>        
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            {{ render_field(form.birth_county, placeholder="County of Birth") }}
+        </div>        
+    </div>    
 </dl>
     
     <button class="btn btn-sm btn-success" type="submit">Add Birth Record</button>

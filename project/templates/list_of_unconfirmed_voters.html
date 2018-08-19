@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="page-header">
-      <h2>Registered Voters</h2>
+      <h2>Confirm Voter</h2>
     </div>
     <div class="row">
       <div class="col-md-4">
@@ -11,18 +11,24 @@
       <tr>
         <th>Name</th>
         <th>Identification Number</th>
-        <th>Year of Birth</th>
-        <th>County</th>       
-
+        <th>Date of Birth</th>
+        <th>County</th>
+        <th>Constituency</th>
+        <th>Ward</th>
+        <th>Polling Station</th>
       </tr>
     </thead>
     <tbody>
       {% for voter in voters %}
       <tr>
-        <td><a href="{{ url_for('iebc.voter_details', voter_id=voter.ID.id) }}">{{ voter.Birth.child_name }}</td>
+        <td><a href="#">{{ voter.Birth.child_name }}</td>
         <td>{{ voter.ID.id_number }}</td>
-        <td>{{ voter.Birth.birth_year }}</td>
-        <td>{{ voter.Birth.birth_county }}</td>            
+        <td>{{ voter.Birth.birth_date }}</td>
+        <td>{{ voter.Birth.birth_county }}</td>
+        <td>{{ voter.Birth.birth_constituency }}</td>
+        <td>{{ voter.Birth.birth_ward }}</td>
+        <td>{{ voter.IEBC.polling_station }}</td>
+        
       </tr>
       {% endfor %}
     </tbody>

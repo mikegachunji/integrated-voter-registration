@@ -31,12 +31,18 @@
             <li class="nav-item">
             <a class="nav-link" href="{{ url_for('births.add_birth') }}">Add Birth Record</a>            
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('births.list_of_persons') }}">List of Persons</a>
+          </li>
           </li>
           {% endif %}
           {% if current_user.username == 'IDAdmin' %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('id.index') }}">All Records</a>
+            <a class="nav-link" href="{{ url_for('id.index') }}">Confirmed Allocations</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('id.unregistered_id_list') }}">Qualified Persons</a>
+          </li>                  
           {% endif %}
           {% if current_user.username == 'IEBCAdmin' %}
           <li class="nav-item">
@@ -54,10 +60,7 @@
             <a class="nav-link" href="{{ url_for('users.admin_view_users') }}">View Users (Admin)</a>
           </li>
               {% endif %}
-          {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
-          </li>
+          {% else %}          
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
           </li>

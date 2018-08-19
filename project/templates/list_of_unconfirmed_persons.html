@@ -2,7 +2,7 @@
 {% block content %}
 
     <div class="page-header">
-      <h2>Registered Voters</h2>
+      <h2>Confirm Allocations</h2>
     </div>
     <div class="row">
       <div class="col-md-4">
@@ -12,17 +12,17 @@
         <th>Name</th>
         <th>Identification Number</th>
         <th>Year of Birth</th>
-        <th>County</th>       
-
+        <th>County</th>               
       </tr>
     </thead>
     <tbody>
-      {% for voter in voters %}
+      {% for id in ids %}
       <tr>
-        <td><a href="{{ url_for('iebc.voter_details', voter_id=voter.ID.id) }}">{{ voter.Birth.child_name }}</td>
-        <td>{{ voter.ID.id_number }}</td>
-        <td>{{ voter.Birth.birth_year }}</td>
-        <td>{{ voter.Birth.birth_county }}</td>            
+        <td><a href="{{ url_for('id.id_allocation_details', id_card_id=id.ID.id) }}">{{ id.Birth.child_name }}</td>
+        <td>{{ id.ID.id_number }}</td>
+        <td>{{ id.Birth.birth_year }}</td>
+        <td>{{ id.Birth.birth_county }}</td>      
+        
       </tr>
       {% endfor %}
     </tbody>

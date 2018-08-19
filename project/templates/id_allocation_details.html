@@ -10,21 +10,24 @@
  
   <div class="row">
     <div class="col-sm-6">
+    <div class="card panel-info">
+        <div class="card-header">Account Actions</div>
+        <div class="card-body"><a href="{{ url_for('id.mark_as_allocated', birth_id=voters.Birth.id) }}">Mark as Allocated</a></div>               
+      </div>
     <div class="card panel-primary">
       <div class="card-header">Identification Number</div>
       <div class="card-body">{{ voters.ID.id_number }}</div>
     </div>
  
     <div class="card panel-primary">
-      <div class="card-header">Year of Birth</div>
+      <div class="card-header">Date of Birth</div>
       <div class="card-body">{{ voters.Birth.birth_year }}</div>
     </div>
 
     <div class="card panel-primary">
       <div class="card-header">County</div>
       <div class="card-body">{{ voters.Birth.birth_county }}</div>
-    </div> 
-
+    </div>
     
 
     {% if voters.ID.image_url %}
@@ -32,7 +35,7 @@
     {% endif %}
  
   </div>
-</div>
+</div>`
  
 
 {% endblock %}

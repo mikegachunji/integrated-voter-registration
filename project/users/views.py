@@ -87,6 +87,7 @@ def register():
     return render_template('register.html', form=form)
 
 
+@users_blueprint.route('/', methods=['GET', 'POST'])
 @users_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm(request.form)
