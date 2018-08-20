@@ -49,14 +49,27 @@ def search_results(search):
                 Birth.id==ID.birth_id).filter(Birth.is_voter == True).filter(
                     ID.id_number.contains(search_string))
             results = [item[0] for item in qry.all()]
+        
         elif search.data['select'] == 'Name':
-            qry = db.session.query(Birth).filter(
+            qry = db.session.query(Birth).filter(Birth.is_voter == True).filter(
                 Birth.child_name.contains(search_string))
             results = qry.all()
+        
         elif search.data['select'] == 'County':
-            qry = db.session.query(Birth).filter(
+            qry = db.session.query(Birth).filter(Birth.is_voter == True).filter(
                 Birth.birth_county.contains(search_string))
             results = qry.all()
+        
+        elif search.data['select'] == 'County' and search.data['select1'] == 'Male':
+            qry = db.session.query(Birth).filter(Birth.is_voter == True).filter(Birth.gender == 'Male').filter(
+                Birth.birth_county.contains(search_string))
+            results = qry.all()
+
+        elif search.data['select'] == 'County' and search.data['select1'] == 'Female':
+            qry = db.session.query(Birth).filter(Birth.is_voter == True).filter(Birth.gender == 'Female').filter(
+                Birth.birth_county.contains(search_string))
+            results = qry.all()
+        
         else:
             qry = db.session.query(Birth, ID).join(ID)
             results = qry.all()
