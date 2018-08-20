@@ -44,6 +44,7 @@ from project.births.views import births_blueprint
 from project.users.views import users_blueprint
 from project.id.views import id_blueprint
 from project.iebc.views import iebc_blueprint
+from project.main.views import main_blueprint
 
 
 
@@ -53,6 +54,7 @@ app.register_blueprint(births_blueprint)
 app.register_blueprint(users_blueprint)
 app.register_blueprint(id_blueprint)
 app.register_blueprint(iebc_blueprint)
+app.register_blueprint(main_blueprint)
 
 
 ############################

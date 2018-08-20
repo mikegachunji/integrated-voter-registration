@@ -36,34 +36,35 @@ def birthday(date):
     age = now - date
 
     return age
+
+
  
 
 
 @iebc_blueprint.route('/voter_list')
 def index():
     all_voters = db.session.query(Birth, ID).join(ID).filter(Birth.is_voter == True, Birth.deceased == False).all()
-    print (all_voters)
     if current_user.username == 'IEBCAdmin':
         return render_template('registered_voters.html', voters=all_voters)
     else:
         flash('Error! Incorrect permissions to access this record.', 'error')
         return render_template('403.html')
 
+
 @iebc_blueprint.route('/unregistered_voter_list')
 def unregistered_voter_list():
     all_ids = db.session.query(Birth,ID).filter(Birth.id == ID.birth_id, birthday(Birth.birth_year) >= 18, Birth.has_id == True, Birth.is_voter == False).all()
-    print (all_ids)
     if current_user.username == 'IEBCAdmin':
         return render_template('unregistered_voters.html', ids=all_ids)
     else:
         flash('Error! Incorrect permissions to access this record.', 'error')
         return render_template('403.html')
 
+
 @iebc_blueprint.route('/list_of_unconfirmed_voters')
 @login_required
 def list_of_unconfirmed_voters():
     all_voters = db.session.query(Birth,ID, IEBC).join(ID).join(IEBC).filter(birthday(Birth.birth_year) >= 18, Birth.has_id == True, Birth.is_voter == False).all()
-    print (all_voters)
     if current_user.username == 'IEBCAdmin':
         return render_template('list_of_unconfirmed_voters.html', voters=all_voters)
     else:
@@ -82,6 +83,7 @@ def mark_as_voter(birth_id):
     return redirect(url_for('iebc.index'))
 
 
+
 @iebc_blueprint.route('/add_polling_station/<id_card_id>')
 def add_polling_station(id_card_id):
     id_with_birth = db.session.query(ID, Birth).join(Birth).filter(ID.id == id_card_id).first()
@@ -92,11 +94,11 @@ def add_polling_station(id_card_id):
         return render_template('403.html')
 
 
+
 @iebc_blueprint.route('/voter_allocation_detail/<id_card_id>')
 @login_required
 def voter_allocation_details(id_card_id):
     all_voters = db.session.query(ID,Birth).join(Birth).filter(ID.id == id_card_id).first()
-    print (all_voters)
     if all_voters is not None:        
         if current_user.is_authenticated and current_user.username == 'IEBCAdmin':
             return render_template('voter_allocation_details.html', voters=all_voters)
@@ -104,6 +106,7 @@ def voter_allocation_details(id_card_id):
             flash('Error! Incorrect permissions to access this record.', 'error')
     else:
         flash('Error! Record does not exist.', 'error')
+
 
 
 
@@ -130,7 +133,6 @@ def add_station():
 @iebc_blueprint.route('/voter_detail/<voter_id>')
 def voter_details(voter_id):
     all_voters = db.session.query(Birth, ID).join(ID).filter(ID.id == voter_id).first()
-    print (all_voters)
     if all_voters is not None:        
         if current_user.is_authenticated and current_user.username == 'IEBCAdmin':
             return render_template('voter_details.html', voters=all_voters)

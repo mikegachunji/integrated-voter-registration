@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% from "_form_macros.html" import render_field %}
+ 
+{% block content %}
+ 
+<div class="add-recipe">
+  <div class="page-header">
+    <h2>Search</h2>
+  </div>
+  <form method=post>
+    {{ form.csrf_token }}
+    <dl>
+      {{ render_field(form.select) }}
+      {{ render_field(form.search) }}      
+    </dl>
+    <button class="btn btn-sm btn-success" type="submit">Search</button>
+  </form>
+</div>
+ 
+{% endblock %}
