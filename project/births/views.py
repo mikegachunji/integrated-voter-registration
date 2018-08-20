@@ -133,44 +133,9 @@ def birth_with_ID_details(birth_id):
     return redirect(url_for('births.index'))
 
 
-@births_blueprint.route('/search', methods=['GET', 'POST'])
-
-def search_index():
-
-    search = SearchForm(request.form)
-
-    if request.method == 'POST':
-
-        return search_results(search)
-
-    return render_template('search.html', form=search)
 
 
 
-@births_blueprint.route('/results')
 
-def search_results(search):
-
-    results = []
-
-    search_string = search.data['search']
-
-    if search.data['search'] == '':
-
-        qry = db_session.query(Birth)
-
-        results = qry.all()
-
-    if not results:
-
-        flash('No results found!')
-
-        return redirect('/search')
-
-    else:
-
-        # display results
-
-        return render_template('results.html', results=results)
 
 

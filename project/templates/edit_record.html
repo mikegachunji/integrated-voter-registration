@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% from "_form_macros.html" import render_field %}
+ 
+{% block content %}
+ 
+<div class="add-recipe">
+  <div class="page-header">
+    <h2>Edit Record</h2>
+  </div>
+  <form method=post>
+    {{ form.csrf_token }}
+    <dl>
+      {{ render_field(form.child_name) }}
+      {{ render_field(form.birth_county) }}
+      {{ render_field(form.birth_year) }}     
+    </dl>
+    <button class="btn btn-sm btn-success" type="submit">Update</button>
+  </form>
+</div>
+ 
+{% endblock %}
